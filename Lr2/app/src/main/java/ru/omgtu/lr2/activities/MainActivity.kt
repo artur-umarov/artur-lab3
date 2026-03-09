@@ -6,15 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import ru.omgtu.lr2.R
+import ru.omgtu.lr2.fragments.BaseFragment  // ← ЭТОТ ИМПОРТ НУЖЕН!
 import ru.omgtu.lr2.fragments.FirstFragment
 
-class MainActivity : AppCompatActivity(), FirstFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), BaseFragment.OnFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Добавляем фрагмент
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, FirstFragment())

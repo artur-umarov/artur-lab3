@@ -7,27 +7,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import ru.omgtu.lr2.R
 
-class FirstFragment : BaseFragment() {
+class SecondFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        return inflater.inflate(R.layout.fragment_second, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.btnOpenSecond).setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, SecondFragment())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        view.findViewById<Button>(R.id.btnShowToast).setOnClickListener {
-            listener?.onButtonPressed(2)
+        view.findViewById<Button>(R.id.btnBack).setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
     }
 }

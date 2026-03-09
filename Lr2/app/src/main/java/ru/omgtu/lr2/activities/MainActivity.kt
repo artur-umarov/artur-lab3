@@ -8,12 +8,19 @@ import androidx.core.view.WindowInsetsCompat
 import ru.omgtu.lr2.R
 import ru.omgtu.lr2.fragments.BaseFragment  // ← ЭТОТ ИМПОРТ НУЖЕН!
 import ru.omgtu.lr2.fragments.FirstFragment
+import android.content.Intent
+import android.widget.Button
+import ru.omgtu.lr2.activities.ProfileActivity
 
 class MainActivity : AppCompatActivity(), BaseFragment.OnFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        findViewById<Button>(R.id.btnProfile).setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

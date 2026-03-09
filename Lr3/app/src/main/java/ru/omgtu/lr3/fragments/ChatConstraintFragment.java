@@ -1,66 +1,66 @@
 package ru.omgtu.lr3.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import ru.omgtu.lr3.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ChatConstraintFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ChatConstraintFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ChatConstraintFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChatConstraintFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChatConstraintFragment newInstance(String param1, String param2) {
-        ChatConstraintFragment fragment = new ChatConstraintFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private LinearLayout messagesContainer;
+    private EditText editMessage;
+    private Button btnSend;
+    private int messageCount = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat_constraint, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat_constraint, container, false);
+
+        messagesContainer = view.findViewById(R.id.messagesContainer);
+        editMessage = view.findViewById(R.id.editMessage);
+        btnSend = view.findViewById(R.id.btnSend);
+
+        addTestMessages();
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessage();
+            }
+        });
+
+        return view;
+    }
+
+    private void addTestMessages() {
+        for (int i = 1; i <= 5; i++) {
+            addMessage("Тестовое сообщение " + i);
+        }
+    }
+
+    private void sendMessage() {
+        String messageText = editMessage.getText().toString().trim();
+        if (!messageText.isEmpty()) {
+            addMessage(messageText);
+            editMessage.setText("");
+        }
+    }
+
+    private void addMessage(String text) {
+        messageCount++;
+        TextView messageView = new TextView(getContext());
+        messageView.setText(text + " (" + messageCount + ")");
+        messageView.setPadding(16, 16, 16, 16);
+        messageView.setTextSize(16);
+        messagesContainer.addView(messageView);
     }
 }
